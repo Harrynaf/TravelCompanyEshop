@@ -4,10 +4,13 @@
  */
 package com.travelcompany.eshop.model;
 
+import lombok.Data;
+
 /**
  *
  * @author hnafp
  */
+@Data
 public class Ticket {
     private String passengerCode;
     private String itineraryCode;

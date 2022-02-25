@@ -4,10 +4,13 @@
  */
 package com.travelcompany.eshop.model;
 
+import lombok.Data;
+
 /**
  *
  * @author hnafp
  */
+@Data
 public class BusinessCustomer extends Customer {
     
 }

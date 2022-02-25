@@ -6,11 +6,13 @@ package com.travelcompany.eshop.model;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import lombok.Data;
 
 /**
  *
  * @author hnafp
  */
+@Data
 public class Itinerary {
     private String code;
     private String departureCode;
