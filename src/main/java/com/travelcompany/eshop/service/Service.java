@@ -35,9 +35,9 @@ public abstract class Service implements CustomerService,TicketService {
     }
     public void BuyTicket(Itinerary itinerary,Customer customer){
         
-        //CreateTicket(itinerary.code,cus);
+        //CreateTicket(getter itinerary.code, itinerary.airline, customer.name);
     }
-    public Ticket CreateTicket(String code){
+    public Ticket CreateTicket(String code, String airline, String passenger){
     
     return null;}
 }
