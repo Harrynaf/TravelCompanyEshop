@@ -5,7 +5,6 @@
 package com.travelcompany.eshop.model;
 
 
-
 /**
  *
  * @author hnafp

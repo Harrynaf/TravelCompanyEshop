@@ -46,4 +46,7 @@ public abstract class CustomerService {
         }
         return null;
     }
+    public static void showCustomersWithMostTickets(){}
+    public static void showCustomersWithoutTickets(){}
+    
 }
