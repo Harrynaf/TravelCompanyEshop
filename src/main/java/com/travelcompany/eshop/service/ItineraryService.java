@@ -18,4 +18,7 @@ public abstract class ItineraryService {
         Itinerary itinerary = new Itinerary(code, departureCode, destinationCode, airline, departureDate, basicPrice);
         return itinerary;
     }
+
+    public static void showAllItineraries(Itinerary[] Itineraries) {
+    }
 }
