@@ -18,6 +18,18 @@ public class Itinerary {
     private String departureCode;
     private String destinationCode;
     private String airline;
+        private Date departureDate;
     private BigDecimal basicPrice;
-    private Date departureDate;
+
+    public Itinerary(String code, String departureCode, String destinationCode, String airline, Date departureDate, BigDecimal basicPrice) {
+        this.code = code;
+        this.departureCode = departureCode;
+        this.destinationCode = destinationCode;
+        this.airline = airline;
+        this.departureDate = departureDate;
+        this.basicPrice = basicPrice;
+    }
+
+
+   
 }

@@ -6,6 +6,7 @@ package com.travelcompany.eshop.service;
 
 import com.travelcompany.eshop.model.BusinessCustomer;
 import com.travelcompany.eshop.model.Customer;
+import com.travelcompany.eshop.model.IndividualCustomer;
 import com.travelcompany.eshop.model.Itinerary;
 import com.travelcompany.eshop.model.Ticket;
 import java.math.BigDecimal;
@@ -21,18 +22,37 @@ public abstract class TicketService {
         String ticketItineraryCode=itinerary.getCode();
         String ticketPaymentMethod=paymentMethod;
         BigDecimal ticketAmountPaid=itinerary.getBasicPrice();
+        BigDecimal discount=BigDecimal.ZERO;
+        BigDecimal surcharge=BigDecimal.ZERO;
         
         if(customer instanceof BusinessCustomer && paymentMethod.equals("cash"))
-        ticketAmountPaid=ticketAmountPaid;
+        {discount =new BigDecimal("0.1");
+            ticketAmountPaid=ticketAmountPaid.add(ticketAmountPaid.multiply(surcharge));
+               ticketAmountPaid=ticketAmountPaid.subtract(ticketAmountPaid.multiply(discount));}
+        else if(customer instanceof BusinessCustomer && paymentMethod.equals("card"))
+        {discount =new BigDecimal("0.2");
+           ticketAmountPaid=ticketAmountPaid.add(ticketAmountPaid.multiply(surcharge));
+               ticketAmountPaid=ticketAmountPaid.subtract(ticketAmountPaid.multiply(discount));}
+        if(customer instanceof IndividualCustomer && paymentMethod.equals("cash"))
+        {surcharge = new BigDecimal("0.2");
+            ticketAmountPaid=ticketAmountPaid.add(ticketAmountPaid.multiply(surcharge));
+               ticketAmountPaid=ticketAmountPaid.subtract(ticketAmountPaid.multiply(discount));}
+        else if(customer instanceof IndividualCustomer && paymentMethod.equals("card"))
+        {surcharge = new BigDecimal("0.2");
+            discount =new BigDecimal("0.1");
+            ticketAmountPaid=ticketAmountPaid.add(ticketAmountPaid.multiply(surcharge));
+               ticketAmountPaid=ticketAmountPaid.subtract(ticketAmountPaid.multiply(discount));}
         
         
         Ticket ticket = CreateTicket(ticketPassengerCode,ticketItineraryCode,ticketPaymentMethod,ticketAmountPaid);
+        System.out.println("Ticket purchase successful "+ticket);
     }
 
     public static Ticket CreateTicket(String ticketPassengerCode, String ticketItineraryCode, String ticketPaymentMethod, BigDecimal ticketAmountPaid) {
-
-        return null;
+Ticket ticket = new Ticket(ticketPassengerCode,  ticketItineraryCode,  ticketPaymentMethod,  ticketAmountPaid);
+        return ticket;
     }
+    
     public static void showAllTickets(){}
     public static void showAllItinerariesPerDestDep(String Destination, String Departure){}
     

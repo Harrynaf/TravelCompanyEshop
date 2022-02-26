@@ -4,6 +4,7 @@
  */
 package com.travelcompany.eshop.model;
 
+import java.math.BigDecimal;
 import lombok.Data;
 
 /**
@@ -15,5 +16,17 @@ public class Ticket {
     private String passengerCode;
     private String itineraryCode;
     private String paymentMethod;
-    private String amountPaid;
+    private BigDecimal amountPaid;
+
+    public Ticket(String passengerCode, String itineraryCode, String paymentMethod, BigDecimal amountPaid) {
+        this.passengerCode = passengerCode;
+        this.itineraryCode = itineraryCode;
+        this.paymentMethod = paymentMethod;
+        this.amountPaid = amountPaid;
+    }
+
+    @Override
+    public String toString() {
+        return "Ticket{" + "passengerCode=" + passengerCode + ", itineraryCode=" + itineraryCode + ", paymentMethod=" + paymentMethod + ", amountPaid=" + amountPaid + '}';
+    }
 }
