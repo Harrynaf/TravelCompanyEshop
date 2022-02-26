@@ -4,13 +4,21 @@
  */
 package com.travelcompany.eshop.model;
 
-import lombok.Data;
 
 /**
  *
  * @author hnafp
  */
-@Data
+
 public class IndividualCustomer extends Customer{
+
+    public IndividualCustomer(String code, String name, String surname, String email, String address, String nationality) {
+        super(code, name, surname, email, address, nationality);
+    }
+     @Override
+    public String toString() {
+        return "IndividualCustomer{"+ super.toString() + ", category=Individual}";
+    }
+    
     
 }

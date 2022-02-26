@@ -4,13 +4,16 @@
  */
 package com.travelcompany.eshop.service;
 
+import com.travelcompany.eshop.model.Customer;
+import com.travelcompany.eshop.model.Itinerary;
 import com.travelcompany.eshop.model.Ticket;
 
 /**
  *
  * @author hnafp
  */
-public interface TicketService {
-    public void BuyTicket();
-    public Ticket CreateTicket();
+public abstract class TicketService {
+    public static void BuyTicket(Itinerary itinerary, Customer customer){}
+    public static Ticket CreateTicket(String code, String airline, String passenger){
+    return null;}
 }

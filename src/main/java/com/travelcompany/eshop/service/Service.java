@@ -5,15 +5,18 @@
 package com.travelcompany.eshop.service;
 
 import com.travelcompany.eshop.model.Customer;
+import com.travelcompany.eshop.model.BusinessCustomer;
+import com.travelcompany.eshop.model.IndividualCustomer;
 import com.travelcompany.eshop.model.Itinerary;
 import com.travelcompany.eshop.model.Ticket;
+import java.util.Scanner;
 
 /**
  *
  * @author hnafp
  */
-public abstract class Service implements CustomerService,TicketService {
-//    protected String code;
+public class Service {
+    // private String Customercode;
 //    protected String name;
 //    protected String surname;
 //    protected String email;
@@ -24,20 +27,15 @@ public abstract class Service implements CustomerService,TicketService {
 //    private String itineraryCode;
 //    private String paymentMethod;
 //    private String amountPaid;
-    
-    public Customer CreateCustomer(){
-    
-        System.out.println("Please enter customer code,name,surname,email,address,nationality and category, in that order");
-        
-        
-        return null;
-    
+
+   
+
+   
+
+    public void runService() {
+
+        Customer customer = CustomerService.CreateCustomer();
+        System.out.println("You are logged in with new user: credentials"+customer);
+
     }
-    public void BuyTicket(Itinerary itinerary,Customer customer){
-        
-        //CreateTicket(getter itinerary.code, itinerary.airline, customer.name);
-    }
-    public Ticket CreateTicket(String code, String airline, String passenger){
-    
-    return null;}
 }
