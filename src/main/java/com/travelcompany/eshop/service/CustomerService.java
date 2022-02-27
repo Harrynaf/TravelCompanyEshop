@@ -6,7 +6,11 @@ package com.travelcompany.eshop.service;
 
 import com.travelcompany.eshop.model.BusinessCustomer;
 import com.travelcompany.eshop.model.Customer;
+import com.travelcompany.eshop.model.Ticket;
 import com.travelcompany.eshop.model.IndividualCustomer;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 /**
@@ -46,7 +50,69 @@ public abstract class CustomerService {
         }
         return null;
     }
-    public static void showCustomersWithMostTickets(){}
-    public static void showCustomersWithoutTickets(){}
-    
+
+    public static void showCustomersWithMostTickets(Customer[] Customers, Ticket[] Tickets) {
+        Map<Customer, Integer> CustomerWithTickets = new HashMap<>();
+        int totalNumber = 0;
+        int maxNumberOfTickets = 0;
+        for (int count = 0; count < Customers.length; count++) {
+            if (Customers[count] != null) {
+                for (int count1 = 0; count1 < Tickets.length; count1++) {
+
+                    if (Tickets[count1] != null) {
+                        if (Tickets[count1].getPassengerCode().equals(Customers[count].getCode())) {
+                            totalNumber++;
+
+                        }
+
+                    }
+
+                }
+
+                CustomerWithTickets.put(Customers[count], totalNumber);
+                if (totalNumber > maxNumberOfTickets) {
+                    maxNumberOfTickets = totalNumber;
+                }
+                totalNumber = 0;
+            }
+
+        }
+
+        for (Customer key : CustomerWithTickets.keySet()) {
+            if (maxNumberOfTickets == CustomerWithTickets.get(key)) {
+                System.out.println(key + " = " + CustomerWithTickets.get(key));
+            }
+
+        }
+
+    }
+
+    public static void showCustomersWithoutTickets(Customer[] Customers, Ticket[] Tickets) {
+        Map<Customer, Integer> CustomerWithTickets = new HashMap<>();
+        int totalNumber = 0;
+        for (int count = 0; count < Customers.length; count++) {
+            if (Customers[count] != null) {
+                for (int count1 = 0; count1 < Tickets.length; count1++) {
+
+                    if (Tickets[count1] != null) {
+                        if (Tickets[count1].getPassengerCode().equals(Customers[count].getCode())) {
+                            totalNumber++;
+                        }
+
+                    }
+
+                }
+                if (totalNumber == 0) {
+                    CustomerWithTickets.put(Customers[count], totalNumber);
+                }
+                totalNumber = 0;
+
+            }
+
+        }
+        for (Customer key : CustomerWithTickets.keySet()) {
+            System.out.println(key + " = " + CustomerWithTickets.get(key));
+        }
+    }
+
 }

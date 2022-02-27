@@ -14,11 +14,12 @@ import lombok.Data;
  */
 @Data
 public class Itinerary {
+
     private String code;
     private String departureCode;
     private String destinationCode;
     private String airline;
-        private Date departureDate;
+    private Date departureDate;
     private BigDecimal basicPrice;
 
     public Itinerary(String code, String departureCode, String destinationCode, String airline, Date departureDate, BigDecimal basicPrice) {
@@ -30,6 +31,4 @@ public class Itinerary {
         this.basicPrice = basicPrice;
     }
 
-
-   
 }

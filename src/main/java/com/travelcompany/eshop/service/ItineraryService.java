@@ -20,5 +20,24 @@ public abstract class ItineraryService {
     }
 
     public static void showAllItineraries(Itinerary[] Itineraries) {
+        for (int count = 0; count < Itineraries.length; count++) {
+            if (Itineraries[count] != null) {
+                System.out.println(Itineraries[count]);
+            }
+        }
+    }
+
+    public static void showAllItinerariesPerDestDep(Itinerary[] Itineraries, String Departure, String Destination) {
+        Itinerary chosenItinerary;
+        for (int count = 0; count < Itineraries.length; count++) {
+            if (Itineraries[count] != null) {
+                if (Itineraries[count].getDestinationCode().equals(Destination) && Itineraries[count].getDepartureCode().equals(Departure)) {
+                    chosenItinerary = Itineraries[count];
+                    System.out.println(chosenItinerary);
+
+                }
+            }
+
+        }
     }
 }
