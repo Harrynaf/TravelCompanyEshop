@@ -19,7 +19,7 @@ import java.util.Scanner;
  */
 public abstract class CustomerService {
 
-    public static Customer CreateCustomer() {
+    protected static Customer CreateCustomer() {
         String customerCode;
         String customerName;
         String customerSurname;
@@ -34,6 +34,9 @@ public abstract class CustomerService {
         customerName = myObj.nextLine();  // Read user input
         customerSurname = myObj.nextLine();  // Read user input
         customerEmail = myObj.nextLine();  // Read user input
+        if (!customerEmail.endsWith("@travelcompany.com")) {
+            throw new IllegalArgumentException("Incorrect email, must end with @travelcompany.com");
+        }
         customerAddress = myObj.nextLine();  // Read user input
         customerNationality = myObj.nextLine();  // Read user input
         customerCategory = myObj.nextLine();  // Read user input
@@ -51,7 +54,7 @@ public abstract class CustomerService {
         return null;
     }
 
-    public static void showCustomersWithMostTickets(Customer[] Customers, Ticket[] Tickets) {
+    protected static void showCustomersWithMostTickets(Customer[] Customers, Ticket[] Tickets) {
         Map<Customer, Integer> CustomerWithTickets = new HashMap<>();
         int totalNumber = 0;
         int maxNumberOfTickets = 0;
@@ -87,7 +90,7 @@ public abstract class CustomerService {
 
     }
 
-    public static void showCustomersWithoutTickets(Customer[] Customers, Ticket[] Tickets) {
+    protected static void showCustomersWithoutTickets(Customer[] Customers, Ticket[] Tickets) {
         Map<Customer, Integer> CustomerWithTickets = new HashMap<>();
         int totalNumber = 0;
         for (int count = 0; count < Customers.length; count++) {

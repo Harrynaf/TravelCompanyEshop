@@ -8,6 +8,7 @@ import com.travelcompany.eshop.model.BusinessCustomer;
 import com.travelcompany.eshop.model.Customer;
 import com.travelcompany.eshop.model.IndividualCustomer;
 import com.travelcompany.eshop.model.Itinerary;
+import com.travelcompany.eshop.model.ItineraryCityCodes;
 import com.travelcompany.eshop.model.Ticket;
 import java.math.BigDecimal;
 import java.time.Instant;
@@ -29,13 +30,12 @@ public class Service {
         Instant instant = Instant.parse("2022-02-01T13:35:00.00Z");
         Instant instant1 = Instant.parse("2022-04-01T13:35:00.00Z");
         Itinerary[] Itineraries = new Itinerary[SIZE];
-        Itineraries[0] = ItineraryService.CreateItinerary("1", "ATH", "BER", "SkyLines", Date.from(instant), new BigDecimal("120"));
-        Itineraries[1] = ItineraryService.CreateItinerary("2", "ATH", "PAR", "SkyLines", Date.from(instant1), new BigDecimal("140"));
-        Itineraries[2] = ItineraryService.CreateItinerary("3", "ATH", "NYC", "SkyLines", Date.from(instant), new BigDecimal("180"));
-        Itineraries[3] = ItineraryService.CreateItinerary("4", "ATH", "AUS", "SkyLines", Date.from(instant1), new BigDecimal("170"));
-        Itineraries[4] = ItineraryService.CreateItinerary("5", "ATH", "CHN", "SkyLines", Date.from(instant), new BigDecimal("190"));
-        Itineraries[5] = ItineraryService.CreateItinerary("6", "ATH", "JPN", "SkyLines", Date.from(instant1), new BigDecimal("195"));
-
+        Itineraries[0] = ItineraryService.CreateItinerary("1", ItineraryCityCodes.ATH, ItineraryCityCodes.BER, "SkyLines", Date.from(instant), new BigDecimal("120"));
+        Itineraries[1] = ItineraryService.CreateItinerary("2", ItineraryCityCodes.ATH, ItineraryCityCodes.PAR, "SkyLines", Date.from(instant1), new BigDecimal("140"));
+        Itineraries[2] = ItineraryService.CreateItinerary("3", ItineraryCityCodes.AUS, ItineraryCityCodes.NYC, "SkyLines", Date.from(instant), new BigDecimal("180"));
+        Itineraries[3] = ItineraryService.CreateItinerary("4", ItineraryCityCodes.NYC, ItineraryCityCodes.AUS, "SkyLines", Date.from(instant1), new BigDecimal("170"));
+        Itineraries[4] = ItineraryService.CreateItinerary("5", ItineraryCityCodes.CHN, ItineraryCityCodes.JPN, "SkyLines", Date.from(instant), new BigDecimal("190"));
+        Itineraries[5] = ItineraryService.CreateItinerary("6", ItineraryCityCodes.ATH, ItineraryCityCodes.NYC, "SkyLines", Date.from(instant1), new BigDecimal("195"));
         Customer[] Customers = new Customer[SIZE];
         Customers[1] = new BusinessCustomer("A1", "Harry", "Naf", "asdas@dasd.com", "asda", "Greek");
         Customers[2] = new BusinessCustomer("A2", "1", "1", "1asdas@dasd.com", "1asda", "Greek");
@@ -50,11 +50,11 @@ public class Service {
         //Main code
         Customers[0] = CustomerService.CreateCustomer();
         String option = BLANK;
-        String option1 = BLANK;
+        String option1;
         Itinerary chosenItinerary = null;
         System.out.println("You are logged in with new user: credentials " + Customers[0]);
         while (!option.equals("exit")) {
-            System.out.println("Enter a number corresponding to a following action: 1.Buy a ticket 2.List of the total number and cost of tickets for all customers 3.List of the total offered itineraries per destination and departure \n4.List of the customers who purchased the most tickets and the number of purchases 5.List of the customers who have not purchased any tickets  ");
+            System.out.println("Enter a number corresponding to a following action: 1.Buy a ticket 2.List of the total number and cost of tickets for all customers 3.List of the total offered itineraries per destination and departure \n4.List of the customers who purchased the most tickets and the number of purchases 5.List of the customers who have not purchased any tickets, 'exit' to close");
             Scanner myObj = new Scanner(System.in);  // Create a Scanner object     
             option = myObj.nextLine();
             if (option.equals("1")) {

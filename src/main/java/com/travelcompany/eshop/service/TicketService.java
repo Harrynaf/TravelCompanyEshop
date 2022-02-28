@@ -18,7 +18,9 @@ import java.util.Locale;
  */
 public abstract class TicketService {
 
-    public static Ticket BuyTicket(Itinerary itinerary, Customer customer, String paymentMethod) {
+    protected static Ticket BuyTicket(Itinerary itinerary, Customer customer, String paymentMethod) {
+        if (itinerary == null) throw new NullPointerException("the requested itinerary does not exist :itinerary null exception");
+        if (customer == null) throw new NullPointerException("    the given customer code does not exist :customer null exception");
         String ticketPassengerCode = customer.getCode();
         String ticketItineraryCode = itinerary.getCode();
         String ticketPaymentMethod = paymentMethod;
@@ -30,35 +32,46 @@ public abstract class TicketService {
             discount = new BigDecimal("0.1");
             ticketAmountPaid = ticketAmountPaid.add(ticketAmountPaid.multiply(surcharge));
             ticketAmountPaid = ticketAmountPaid.subtract(ticketAmountPaid.multiply(discount));
+            Ticket ticket = CreateTicket(ticketPassengerCode, ticketItineraryCode, ticketPaymentMethod, ticketAmountPaid);
+            System.out.println("Ticket purchase successful " + ticket);
+            return ticket;
         } else if (customer instanceof BusinessCustomer && paymentMethod.equals("card")) {
             discount = new BigDecimal("0.2");
             ticketAmountPaid = ticketAmountPaid.add(ticketAmountPaid.multiply(surcharge));
             ticketAmountPaid = ticketAmountPaid.subtract(ticketAmountPaid.multiply(discount));
+            Ticket ticket = CreateTicket(ticketPassengerCode, ticketItineraryCode, ticketPaymentMethod, ticketAmountPaid);
+            System.out.println("Ticket purchase successful " + ticket);
+            return ticket;
         }
         if (customer instanceof IndividualCustomer && paymentMethod.equals("cash")) {
             surcharge = new BigDecimal("0.2");
             ticketAmountPaid = ticketAmountPaid.add(ticketAmountPaid.multiply(surcharge));
             ticketAmountPaid = ticketAmountPaid.subtract(ticketAmountPaid.multiply(discount));
+            Ticket ticket = CreateTicket(ticketPassengerCode, ticketItineraryCode, ticketPaymentMethod, ticketAmountPaid);
+            System.out.println("Ticket purchase successful " + ticket);
+            return ticket;
         } else if (customer instanceof IndividualCustomer && paymentMethod.equals("card")) {
             surcharge = new BigDecimal("0.2");
             discount = new BigDecimal("0.1");
             ticketAmountPaid = ticketAmountPaid.add(ticketAmountPaid.multiply(surcharge));
             ticketAmountPaid = ticketAmountPaid.subtract(ticketAmountPaid.multiply(discount));
+            Ticket ticket = CreateTicket(ticketPassengerCode, ticketItineraryCode, ticketPaymentMethod, ticketAmountPaid);
+            System.out.println("Ticket purchase successful " + ticket);
+            return ticket;
+        } else {
+            System.out.println("Wrong input for payment method");
+            return null;
         }
-
-        Ticket ticket = CreateTicket(ticketPassengerCode, ticketItineraryCode, ticketPaymentMethod, ticketAmountPaid);
-        System.out.println("Ticket purchase successful " + ticket);
-        return ticket;
     }
 
-    public static Ticket CreateTicket(String ticketPassengerCode, String ticketItineraryCode, String ticketPaymentMethod, BigDecimal ticketAmountPaid) {
+    protected static Ticket CreateTicket(String ticketPassengerCode, String ticketItineraryCode, String ticketPaymentMethod, BigDecimal ticketAmountPaid) {
         Ticket ticket = new Ticket(ticketPassengerCode, ticketItineraryCode, ticketPaymentMethod, ticketAmountPaid);
         return ticket;
     }
 
-    public static void showAllTickets(Ticket[] Tickets) {
-        BigDecimal totalCost= BigDecimal.ZERO;
-        int totalNumber=0;
+    protected static void showAllTickets(Ticket[] Tickets) {
+        BigDecimal totalCost = BigDecimal.ZERO;
+        int totalNumber = 0;
         for (int count = 0; count < Tickets.length; count++) {
             if (Tickets[count] != null) {
                 System.out.println(Tickets[count]);
@@ -68,7 +81,7 @@ public abstract class TicketService {
         }
         System.out.println(totalCost);
         System.out.println(totalNumber);
-        
+
     }
 
 }
