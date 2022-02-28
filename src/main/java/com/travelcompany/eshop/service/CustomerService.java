@@ -31,7 +31,7 @@ public abstract class CustomerService {
         String customerCategory;
         Customer customer;
         Scanner myObj = new Scanner(System.in);  // Create a Scanner object
-        System.out.println("Please enter customer code,name,surname,email,address,nationality and category, in that order");
+        System.out.println("Please enter customer code,name,surname,email,address,nationality and category(Business/Individual), in that order");
         customerCode = myObj.nextLine();  // Read user input
         customerName = myObj.nextLine();  // Read user input
         customerSurname = myObj.nextLine();  // Read user input
