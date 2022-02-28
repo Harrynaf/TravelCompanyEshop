@@ -10,7 +10,6 @@ import com.travelcompany.eshop.model.IndividualCustomer;
 import com.travelcompany.eshop.model.Itinerary;
 import com.travelcompany.eshop.model.Ticket;
 import java.math.BigDecimal;
-import java.util.Locale;
 
 /**
  *
@@ -18,9 +17,18 @@ import java.util.Locale;
  */
 public abstract class TicketService {
 
+    public static final String CASH = "cash";
+    public static final String CARD = "card";
+    public static final BigDecimal DISCOUNT = new BigDecimal("0.1");
+    public static final BigDecimal SURCHARGE = new BigDecimal("0.2");
+
     protected static Ticket BuyTicket(Itinerary itinerary, Customer customer, String paymentMethod) {
-        if (itinerary == null) throw new NullPointerException("the requested itinerary does not exist :itinerary null exception");
-        if (customer == null) throw new NullPointerException("    the given customer code does not exist :customer null exception");
+        if (itinerary == null) {
+            throw new NullPointerException("the requested itinerary does not exist :itinerary null exception");
+        }
+        if (customer == null) {
+            throw new NullPointerException("the given customer code does not exist :customer null exception");
+        }
         String ticketPassengerCode = customer.getCode();
         String ticketItineraryCode = itinerary.getCode();
         String ticketPaymentMethod = paymentMethod;
@@ -28,31 +36,31 @@ public abstract class TicketService {
         BigDecimal discount = BigDecimal.ZERO;
         BigDecimal surcharge = BigDecimal.ZERO;
 
-        if (customer instanceof BusinessCustomer && paymentMethod.equals("cash")) {
-            discount = new BigDecimal("0.1");
+        if (customer instanceof BusinessCustomer && paymentMethod.equals(CASH)) {
+            discount = DISCOUNT;
             ticketAmountPaid = ticketAmountPaid.add(ticketAmountPaid.multiply(surcharge));
             ticketAmountPaid = ticketAmountPaid.subtract(ticketAmountPaid.multiply(discount));
             Ticket ticket = CreateTicket(ticketPassengerCode, ticketItineraryCode, ticketPaymentMethod, ticketAmountPaid);
             System.out.println("Ticket purchase successful " + ticket);
             return ticket;
-        } else if (customer instanceof BusinessCustomer && paymentMethod.equals("card")) {
-            discount = new BigDecimal("0.2");
+        } else if (customer instanceof BusinessCustomer && paymentMethod.equals(CARD)) {
+            discount = DISCOUNT.add(DISCOUNT);
             ticketAmountPaid = ticketAmountPaid.add(ticketAmountPaid.multiply(surcharge));
             ticketAmountPaid = ticketAmountPaid.subtract(ticketAmountPaid.multiply(discount));
             Ticket ticket = CreateTicket(ticketPassengerCode, ticketItineraryCode, ticketPaymentMethod, ticketAmountPaid);
             System.out.println("Ticket purchase successful " + ticket);
             return ticket;
         }
-        if (customer instanceof IndividualCustomer && paymentMethod.equals("cash")) {
-            surcharge = new BigDecimal("0.2");
+        if (customer instanceof IndividualCustomer && paymentMethod.equals(CASH)) {
+            surcharge = SURCHARGE;
             ticketAmountPaid = ticketAmountPaid.add(ticketAmountPaid.multiply(surcharge));
             ticketAmountPaid = ticketAmountPaid.subtract(ticketAmountPaid.multiply(discount));
             Ticket ticket = CreateTicket(ticketPassengerCode, ticketItineraryCode, ticketPaymentMethod, ticketAmountPaid);
             System.out.println("Ticket purchase successful " + ticket);
             return ticket;
-        } else if (customer instanceof IndividualCustomer && paymentMethod.equals("card")) {
-            surcharge = new BigDecimal("0.2");
-            discount = new BigDecimal("0.1");
+        } else if (customer instanceof IndividualCustomer && paymentMethod.equals(CARD)) {
+            surcharge = SURCHARGE;
+            discount = DISCOUNT;
             ticketAmountPaid = ticketAmountPaid.add(ticketAmountPaid.multiply(surcharge));
             ticketAmountPaid = ticketAmountPaid.subtract(ticketAmountPaid.multiply(discount));
             Ticket ticket = CreateTicket(ticketPassengerCode, ticketItineraryCode, ticketPaymentMethod, ticketAmountPaid);

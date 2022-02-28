@@ -18,7 +18,8 @@ import java.util.Scanner;
  * @author hnafp
  */
 public abstract class CustomerService {
-
+public static final String BUSINESS = "Business";
+public static final String INDIVIDUAL = "Individual";
     protected static Customer CreateCustomer() {
         String customerCode;
         String customerName;
@@ -40,11 +41,11 @@ public abstract class CustomerService {
         customerAddress = myObj.nextLine();  // Read user input
         customerNationality = myObj.nextLine();  // Read user input
         customerCategory = myObj.nextLine();  // Read user input
-        if (customerCategory.equals("Business")) {
+        if (customerCategory.equals(BUSINESS)) {
             customer = new BusinessCustomer(customerCode, customerName, customerSurname, customerEmail, customerAddress, customerNationality);
             System.out.println("Customer created");
             return customer;
-        } else if (customerCategory.equals("Individual")) {
+        } else if (customerCategory.equals(INDIVIDUAL)) {
             System.out.println("Customer created");
             customer = new IndividualCustomer(customerCode, customerName, customerSurname, customerEmail, customerAddress, customerNationality);
             return customer;
