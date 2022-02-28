@@ -8,7 +8,6 @@ import com.travelcompany.eshop.model.BusinessCustomer;
 import com.travelcompany.eshop.model.Customer;
 import com.travelcompany.eshop.model.Ticket;
 import com.travelcompany.eshop.model.IndividualCustomer;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -18,8 +17,10 @@ import java.util.Scanner;
  * @author hnafp
  */
 public abstract class CustomerService {
-public static final String BUSINESS = "Business";
-public static final String INDIVIDUAL = "Individual";
+
+    public static final String BUSINESS = "Business";
+    public static final String INDIVIDUAL = "Individual";
+
     protected static Customer CreateCustomer() {
         String customerCode;
         String customerName;
