@@ -38,38 +38,22 @@ public abstract class TicketService {
 
         if (customer instanceof BusinessCustomer && paymentMethod.equals(CASH)) {
             discount = DISCOUNT;
-            ticketAmountPaid = ticketAmountPaid.add(ticketAmountPaid.multiply(surcharge));
-            ticketAmountPaid = ticketAmountPaid.subtract(ticketAmountPaid.multiply(discount));
-            Ticket ticket = CreateTicket(ticketPassengerCode, ticketItineraryCode, ticketPaymentMethod, ticketAmountPaid);
-            System.out.println("Ticket purchase successful " + ticket);
-            return ticket;
         } else if (customer instanceof BusinessCustomer && paymentMethod.equals(CARD)) {
             discount = DISCOUNT.add(DISCOUNT);
-            ticketAmountPaid = ticketAmountPaid.add(ticketAmountPaid.multiply(surcharge));
-            ticketAmountPaid = ticketAmountPaid.subtract(ticketAmountPaid.multiply(discount));
-            Ticket ticket = CreateTicket(ticketPassengerCode, ticketItineraryCode, ticketPaymentMethod, ticketAmountPaid);
-            System.out.println("Ticket purchase successful " + ticket);
-            return ticket;
-        }
-        if (customer instanceof IndividualCustomer && paymentMethod.equals(CASH)) {
+        } else if (customer instanceof IndividualCustomer && paymentMethod.equals(CASH)) {
             surcharge = SURCHARGE;
-            ticketAmountPaid = ticketAmountPaid.add(ticketAmountPaid.multiply(surcharge));
-            ticketAmountPaid = ticketAmountPaid.subtract(ticketAmountPaid.multiply(discount));
-            Ticket ticket = CreateTicket(ticketPassengerCode, ticketItineraryCode, ticketPaymentMethod, ticketAmountPaid);
-            System.out.println("Ticket purchase successful " + ticket);
-            return ticket;
         } else if (customer instanceof IndividualCustomer && paymentMethod.equals(CARD)) {
             surcharge = SURCHARGE;
             discount = DISCOUNT;
-            ticketAmountPaid = ticketAmountPaid.add(ticketAmountPaid.multiply(surcharge));
-            ticketAmountPaid = ticketAmountPaid.subtract(ticketAmountPaid.multiply(discount));
-            Ticket ticket = CreateTicket(ticketPassengerCode, ticketItineraryCode, ticketPaymentMethod, ticketAmountPaid);
-            System.out.println("Ticket purchase successful " + ticket);
-            return ticket;
         } else {
             System.out.println("Wrong input for payment method");
             return null;
         }
+        ticketAmountPaid = ticketAmountPaid.add(ticketAmountPaid.multiply(surcharge));
+        ticketAmountPaid = ticketAmountPaid.subtract(ticketAmountPaid.multiply(discount));
+        Ticket ticket = CreateTicket(ticketPassengerCode, ticketItineraryCode, ticketPaymentMethod, ticketAmountPaid);
+        System.out.println("Ticket purchase successful " + ticket);
+        return ticket;
     }
 
     protected static Ticket CreateTicket(String ticketPassengerCode, String ticketItineraryCode, String ticketPaymentMethod, BigDecimal ticketAmountPaid) {
