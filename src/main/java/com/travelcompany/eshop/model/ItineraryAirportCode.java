@@ -8,12 +8,12 @@ package com.travelcompany.eshop.model;
  *
  * @author hnafp
  */
-public enum ItineraryCityCodes {
+public enum ItineraryAirportCode {
     ATH("ATH"),BER("BER"),AUS("AUS"),NYC("NYC"),JPN("JPN"),CHN("CHN"),PAR("PAR");
     
         private String value;
 
-    ItineraryCityCodes(String value){
+    ItineraryAirportCode(String value){
         this.value = value;
     }
 

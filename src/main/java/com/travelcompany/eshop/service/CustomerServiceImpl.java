@@ -6,8 +6,10 @@ package com.travelcompany.eshop.service;
 
 import com.travelcompany.eshop.model.Customer;
 import com.travelcompany.eshop.model.Ticket;
+import com.travelcompany.eshop.model.exception.WrongEmailArgumentException;
 import com.travelcompany.eshop.repo.CustomerRepo;
 import com.travelcompany.eshop.repo.CustomerRepoImpl;
+import com.travelcompany.eshop.repo.TicketRepo;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -22,10 +24,13 @@ public class CustomerServiceImpl implements CustomerService {
 
     public static final String BUSINESS = "Business";
     public static final String INDIVIDUAL = "Individual";
+    CustomerRepo customerRepoImpl = new CustomerRepoImpl();
+    List<Customer> Customers = customerRepoImpl.GetCustomers();
+    TicketRepo ticketRepoImpl;
+    List<Ticket> Tickets;
 
     @Override
-    public Customer CreateCustomer() {
-        CustomerRepo customerRepoImpl = new CustomerRepoImpl();
+    public Customer CreateCustomer() throws IllegalArgumentException {
         String customerCode;
         String customerName;
         String customerSurname;
@@ -39,27 +44,34 @@ public class CustomerServiceImpl implements CustomerService {
         customerName = myObj.nextLine();  // Read user input
         customerSurname = myObj.nextLine();  // Read user input
         customerEmail = myObj.nextLine();  // Read user input
-        if (!customerEmail.endsWith("@travelcompany.com")) {
-            throw new IllegalArgumentException("Incorrect email, must end with @travelcompany.com");
-        }
         customerAddress = myObj.nextLine();  // Read user input
         customerNationality = myObj.nextLine();  // Read user input
         customerCategory = myObj.nextLine();  // Read user input
         if (customerCategory.equals(BUSINESS)) {
-            customer = customerRepoImpl.CreateBusinessCustomer(customerCode, customerName, customerSurname, customerEmail, customerAddress, customerNationality);
-            return customer;
+            try {
+                customer = customerRepoImpl.CreateBusinessCustomer(customerCode, customerName, customerSurname, customerEmail, customerAddress, customerNationality);
+                return customer;
+            } catch (WrongEmailArgumentException e) {
+                System.out.println("Nevertheless continuing with wrong email...");
+                System.out.println("Don't believe the following line:");
+            }
         } else if (customerCategory.equals(INDIVIDUAL)) {
-            customer = customerRepoImpl.CreateIndividualCustomer(customerCode, customerName, customerSurname, customerEmail, customerAddress, customerNationality);
-            return customer;
-        } else {
+            try {
+                customer = customerRepoImpl.CreateIndividualCustomer(customerCode, customerName, customerSurname, customerEmail, customerAddress, customerNationality);
+                return customer;
+            } catch (WrongEmailArgumentException e) {
+                System.out.println("Nevertheless continuing with wrong email...");
+                System.out.println("Don't believe the following line:");
+            }
+        } else if (!customerCategory.equals(INDIVIDUAL) && !customerCategory.equals(BUSINESS)) {
+            throw new IllegalArgumentException("IllegalArgumentException: Category false");
         }
         return null;
     }
 
     @Override
-    public Map<Customer, Integer> showCustomersWithMostTickets(List<Customer> Customers, List<Ticket> Tickets) {
+    public Map<Customer, Integer> showCustomersWithMostTickets() {
         Map<Customer, Integer> CustomerWithTickets = new HashMap<>();
-        Map<Customer, Integer> toRemove = new HashMap<>();
         int totalNumber = 0;
         int maxNumberOfTickets = 0;
         for (int count = 0; count < Customers.size(); count++) {
@@ -96,7 +108,7 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public Map<Customer, Integer> showCustomersWithoutTickets(List<Customer> Customers, List<Ticket> Tickets) {
+    public Map<Customer, Integer> showCustomersWithoutTickets() {
         Map<Customer, Integer> CustomerWithTickets = new HashMap<>();
         int totalNumber = 0;
         for (int count = 0; count < Customers.size(); count++) {
@@ -122,4 +134,13 @@ public class CustomerServiceImpl implements CustomerService {
         return CustomerWithTickets;
     }
 
+    @Override
+    public CustomerRepo getCustomerRepo() {
+        return customerRepoImpl;
+    }
+
+    public CustomerServiceImpl(TicketRepo ticketRepoImpl) {
+        this.ticketRepoImpl = ticketRepoImpl;
+        Tickets = ticketRepoImpl.GetTickets();
+    }
 }

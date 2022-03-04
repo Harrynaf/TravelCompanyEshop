@@ -5,8 +5,7 @@
 package com.travelcompany.eshop.service;
 
 import com.travelcompany.eshop.model.Customer;
-import com.travelcompany.eshop.model.Ticket;
-import java.util.List;
+import com.travelcompany.eshop.repo.CustomerRepo;
 import java.util.Map;
 
 /**
@@ -17,8 +16,10 @@ public interface CustomerService {
 
     Customer CreateCustomer();
 
-    Map<Customer, Integer> showCustomersWithMostTickets(List<Customer> Customers, List<Ticket> Tickets);
+    Map<Customer, Integer> showCustomersWithMostTickets();
 
-    Map<Customer, Integer> showCustomersWithoutTickets(List<Customer> Customers, List<Ticket> Tickets);
+    Map<Customer, Integer> showCustomersWithoutTickets();
+
+    CustomerRepo getCustomerRepo();
 
 }

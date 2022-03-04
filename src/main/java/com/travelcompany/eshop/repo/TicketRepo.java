@@ -6,6 +6,7 @@ package com.travelcompany.eshop.repo;
 
 import com.travelcompany.eshop.model.Ticket;
 import java.math.BigDecimal;
+import java.util.List;
 
 /**
  *
@@ -14,4 +15,5 @@ import java.math.BigDecimal;
 public interface TicketRepo {
 
     Ticket CreateTicket(String ticketPassengerCode, String ticketItineraryCode, String ticketPaymentMethod, BigDecimal ticketAmountPaid);
+    List<Ticket> GetTickets();
 }

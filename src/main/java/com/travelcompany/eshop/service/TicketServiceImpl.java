@@ -9,6 +9,9 @@ import com.travelcompany.eshop.model.Customer;
 import com.travelcompany.eshop.model.IndividualCustomer;
 import com.travelcompany.eshop.model.Itinerary;
 import com.travelcompany.eshop.model.Ticket;
+import com.travelcompany.eshop.model.exception.CustomerNotFoundException;
+import com.travelcompany.eshop.model.exception.ItineraryNotFoundException;
+import com.travelcompany.eshop.repo.ItineraryRepo;
 import com.travelcompany.eshop.repo.TicketRepo;
 import com.travelcompany.eshop.repo.TicketRepoImpl;
 import java.math.BigDecimal;
@@ -25,15 +28,18 @@ public class TicketServiceImpl implements TicketService {
     public static final BigDecimal DISCOUNT = new BigDecimal("0.1");
     public static final BigDecimal SURCHARGE = new BigDecimal("0.2");
 
+    TicketRepo ticketRepoImpl = new TicketRepoImpl();
+    List<Ticket> Tickets = ticketRepoImpl.GetTickets();
+    ItineraryRepo ItineraryRepoImpl;
+
     @Override
-    public Ticket BuyTicket(Itinerary itinerary, Customer customer, String paymentMethod) {
-        TicketRepo ticketRepoImpl = new TicketRepoImpl();
+    public Ticket BuyTicket(Itinerary itinerary, Customer customer, String paymentMethod) throws ItineraryNotFoundException,CustomerNotFoundException,IllegalArgumentException {
 
         if (itinerary == null) {
-            throw new NullPointerException("the requested itinerary does not exist :itinerary null exception");
+            throw new ItineraryNotFoundException();
         }
         if (customer == null) {
-            throw new NullPointerException("the given customer code does not exist :customer null exception");
+            throw new CustomerNotFoundException();
         }
         String ticketPassengerCode = customer.getCode();
         String ticketItineraryCode = itinerary.getCode();
@@ -52,17 +58,16 @@ public class TicketServiceImpl implements TicketService {
             surcharge = SURCHARGE;
             discount = DISCOUNT;
         } else {
-            throw new IllegalArgumentException("Incorrect payment method, must be cash or card");
+            throw new IllegalArgumentException("IllegalArgumentException: Incorrect payment method, must be cash or card");
         }
         ticketAmountPaid = ticketAmountPaid.add(ticketAmountPaid.multiply(surcharge));
         ticketAmountPaid = ticketAmountPaid.subtract(ticketAmountPaid.multiply(discount));
         Ticket ticket = ticketRepoImpl.CreateTicket(ticketPassengerCode, ticketItineraryCode, ticketPaymentMethod, ticketAmountPaid);
-
         return ticket;
     }
 
     @Override
-    public BigDecimal showTicketsTotalCost(List<Ticket>  Tickets) {
+    public BigDecimal showTicketsTotalCost() {
         BigDecimal totalCost = BigDecimal.ZERO;
         for (int count = 0; count < Tickets.size(); count++) {
             if (Tickets.get(count) != null) {
@@ -74,7 +79,7 @@ public class TicketServiceImpl implements TicketService {
     }
 
     @Override
-    public int showTicketsTotalNumber(List<Ticket>  Tickets) {
+    public int showTicketsTotalNumber() {
         int totalNumber = 0;
         for (int count = 0; count < Tickets.size(); count++) {
             if (Tickets.get(count) != null) {
@@ -84,6 +89,15 @@ public class TicketServiceImpl implements TicketService {
         }
         return totalNumber;
 
+    }
+
+    public TicketServiceImpl(ItineraryRepo ItineraryRepoImpl) {
+        this.ItineraryRepoImpl = ItineraryRepoImpl;
+    }
+
+    @Override
+    public TicketRepo getTicketRepo() {
+        return ticketRepoImpl;
     }
 
 }

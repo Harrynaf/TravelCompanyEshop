@@ -5,6 +5,7 @@
 package com.travelcompany.eshop.service;
 
 import com.travelcompany.eshop.model.Itinerary;
+import com.travelcompany.eshop.repo.ItineraryRepo;
 import java.util.List;
 
 /**
@@ -13,6 +14,7 @@ import java.util.List;
  */
 public interface ItineraryService {
 
-    List<Itinerary> showAllItinerariesPerDestDep(List<Itinerary> Itineraries, String Departure, String Destination);
+    List<Itinerary> showAllItinerariesPerDestDep(String Departure, String Destination);
 
+    ItineraryRepo getiItineraryRepo();
 }

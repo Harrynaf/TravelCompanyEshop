@@ -5,6 +5,8 @@
 package com.travelcompany.eshop.service;
 
 import com.travelcompany.eshop.model.Itinerary;
+import com.travelcompany.eshop.repo.ItineraryRepo;
+import com.travelcompany.eshop.repo.ItineraryRepoImpl;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,8 +16,11 @@ import java.util.List;
  */
 public class ItineraryServiceImpl implements ItineraryService {
 
+    ItineraryRepo itineraryRepoImpl = new ItineraryRepoImpl();
+    List<Itinerary> Itineraries = itineraryRepoImpl.GetItineraries();
+
     @Override
-    public List<Itinerary> showAllItinerariesPerDestDep(List<Itinerary> Itineraries, String Departure, String Destination) {
+    public List<Itinerary> showAllItinerariesPerDestDep(String Departure, String Destination) {
         List<Itinerary> ChosenItineraries = new ArrayList<>();
         for (int count = 0; count < Itineraries.size(); count++) {
             if (Itineraries.get(count) != null) {
@@ -27,5 +32,9 @@ public class ItineraryServiceImpl implements ItineraryService {
 
         }
         return ChosenItineraries;
+    }
+    @Override
+     public ItineraryRepo getiItineraryRepo() {
+        return itineraryRepoImpl;
     }
 }

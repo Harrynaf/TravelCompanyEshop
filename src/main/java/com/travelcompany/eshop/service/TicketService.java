@@ -8,8 +8,8 @@ import com.travelcompany.eshop.model.Customer;
 
 import com.travelcompany.eshop.model.Itinerary;
 import com.travelcompany.eshop.model.Ticket;
+import com.travelcompany.eshop.repo.TicketRepo;
 import java.math.BigDecimal;
-import java.util.List;
 
 /**
  *
@@ -19,7 +19,9 @@ public interface TicketService {
 
     Ticket BuyTicket(Itinerary itinerary, Customer customer, String paymentMethod);
 
-    BigDecimal showTicketsTotalCost(List<Ticket> Tickets);
+    BigDecimal showTicketsTotalCost();
 
-    int showTicketsTotalNumber(List<Ticket> Tickets);
+    int showTicketsTotalNumber();
+
+    TicketRepo getTicketRepo();
 }

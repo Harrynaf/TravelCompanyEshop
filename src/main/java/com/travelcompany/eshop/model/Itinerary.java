@@ -16,13 +16,13 @@ import lombok.Data;
 public class Itinerary {
 
     private String code;
-    private ItineraryCityCodes departureCode;
-    private ItineraryCityCodes destinationCode;
+    private ItineraryAirportCode departureCode;
+    private ItineraryAirportCode destinationCode;
     private String airline;
     private Date departureDate;
     private BigDecimal basicPrice;
 
-    public Itinerary(String code, ItineraryCityCodes departureCode, ItineraryCityCodes destinationCode, String airline, Date departureDate, BigDecimal basicPrice) {
+    public Itinerary(String code, ItineraryAirportCode departureCode, ItineraryAirportCode destinationCode, String airline, Date departureDate, BigDecimal basicPrice) {
         this.code = code;
         this.departureCode = departureCode;
         this.destinationCode = destinationCode;

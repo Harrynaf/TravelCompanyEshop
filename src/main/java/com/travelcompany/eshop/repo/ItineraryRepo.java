@@ -5,14 +5,18 @@
 package com.travelcompany.eshop.repo;
 
 import com.travelcompany.eshop.model.Itinerary;
-import com.travelcompany.eshop.model.ItineraryCityCodes;
+import com.travelcompany.eshop.model.ItineraryAirportCode;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 /**
  *
  * @author hnafp
  */
 public interface ItineraryRepo {
-    Itinerary CreateItinerary(String code, ItineraryCityCodes departureCode, ItineraryCityCodes destinationCode, String airline, Date departureDate, BigDecimal basicPrice);
+
+    Itinerary CreateItinerary(String code, ItineraryAirportCode departureCode, ItineraryAirportCode destinationCode, String airline, Date departureDate, BigDecimal basicPrice);
+    List<Itinerary> GetItineraries();
+    void PopulateItineraryRepo();
 }
